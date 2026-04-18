@@ -5,10 +5,11 @@ I thought of using FastAPI or Node.js to build backend, connect Shopify, write a
 **Problem I Faced**
 After thinking more, I understood this will take too much time.
 Also, I need to handle many things like APIs, errors, and flow control manually.
-For a hackathon, this is risky.
+I encountered an issue where the API token was exhausted, preventing further requests.
 
 **Final Decision**
 So I changed my approach and decided to use n8n.
+I switched to Ollama and no longer have to worry about API limits.
 
 **Why I Chose n8n**
 It is fast to build
