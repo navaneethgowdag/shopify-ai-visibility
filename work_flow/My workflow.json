@@ -1,0 +1,1384 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        -176
+      ],
+      "id": "94c155c8-249f-45a6-8e06-1760df17fa5b",
+      "name": "Telegram Trigger",
+      "webhookId": "8510a374-d9eb-460a-866c-7777f53fbeaf",
+      "alwaysOutputData": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2f3b33bf-66cc-4993-9b9c-fb9fba922b94",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "start"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ca21c670-4c9c-478a-89f2-5fefd202ebfb",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": ".myshopify.com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "submit_url"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "38b9eadd-9e79-4802-b3c0-6a8b60fe3a38",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "shpat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "submit_token"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "139019d9-b295-4fdb-bf31-8e551e7019bb",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "audit",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "audit"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "cb9bb835-9fc4-4af8-9f6e-5e605fdf234b",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "fix",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "fix"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "92e1bd08-f3ef-499c-ae3b-bd63dcc48e85",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "default"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        -128
+      ],
+      "id": "8ff44cbb-12a9-4b33-8231-ad826447d899",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=👋 Welcome to the AI Store Readability Auditor, {{ $json.firstName }}! \nI'll help you find out how clear and customer-friendly your Shopify store is.\n\nTo get started:\nStep 1️⃣ — Send me your store URL\nExample: yourstore.myshopify.com\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        -336
+      ],
+      "id": "07fc23d2-137e-438d-adfa-6a466e9be2f6",
+      "name": "Send a text message1",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33b38ef0-78fd-4319-bf60-5054a765ff9c",
+              "name": "storeUrl",
+              "value": "={{ $json.userText }}",
+              "type": "string"
+            },
+            {
+              "id": "f1ed691d-2d0b-4770-bdd8-6083eede8025",
+              "name": "chatId",
+              "value": "={{ $json.chatId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        -144
+      ],
+      "id": "2d75457c-ae59-4033-8273-a063e8b99646",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chatId": "={{ $('Edit Fields').item.json.chatId }}",
+            "storeURL": "={{ $('Edit Fields').item.json.userText }}",
+            "token": "\" \""
+          },
+          "matchingColumns": [
+            "chatId"
+          ],
+          "schema": [
+            {
+              "id": "chatId",
+              "displayName": "chatId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "storeURL",
+              "displayName": "storeURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "token",
+              "displayName": "token",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        800,
+        -160
+      ],
+      "id": "f986ca20-a559-49d4-869c-98edc1e71327",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=✅ Got your store URL!\n\nNow please paste your Shopify API token.\nIt looks like this: shpat_xxxxxxxxxxxxxxxx\n\n⚠️ You only need to do this once — I'll save it securely.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1024,
+        -144
+      ],
+      "id": "5bcf2c53-b4e3-47c8-8c18-0021ec132a10",
+      "name": "Send a text message2",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chatId": "={{ $('Edit Fields').item.json.chatId }}",
+            "token": "={{ $('Edit Fields').item.json.userText }}"
+          },
+          "matchingColumns": [
+            "chatId"
+          ],
+          "schema": [
+            {
+              "id": "chatId",
+              "displayName": "chatId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "storeURL",
+              "displayName": "storeURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "token",
+              "displayName": "token",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        32
+      ],
+      "id": "baae0ed1-ecb2-450e-b81a-8529f292c414",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=🔐 Token saved! Your store is now connected.\n\nYou're all set, {{ $json.firstName }}! 🎉\n\nType  audit my store  anytime to run a full readability check.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        16
+      ],
+      "id": "164e3d47-026c-44be-aed1-c4cf9619d74d",
+      "name": "Send a text message3",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chatId",
+              "lookupValue": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        192
+      ],
+      "id": "431f7ac2-4e56-4c57-91de-1a5ef21e8abb",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=⏳ Fetching your store data and running the audit...\nThis takes about 15–20 seconds. Hang tight!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        192
+      ],
+      "id": "af0bd3d5-a9ca-428c-b82c-52c6fab5694d",
+      "name": "Send a text message4",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get row(s) in sheet').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Shopify-Access-Token",
+              "value": "={{ $('Get row(s) in sheet').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1024,
+        176
+      ],
+      "id": "131e3a9c-7354-4193-ba33-dc053f8e2928",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cbb6565b-9817-4243-992a-4ae4b7e07999",
+              "name": "promptText",
+              "value": "=You are an expert e-commerce store auditor.\n\nAnalyze the following Shopify store products for readability and clarity.\n\nPRODUCTS:\n{{ $('HTTP Request').item.json.products.map(p => 'Title: ' + p.title + '\\nDescription: ' + (p.body_html || 'NO DESCRIPTION')).join('\\n---\\n') }}\n\nReply in this exact format with no special characters, no asterisks, no markdown:\n\nSTORE AUDIT REPORT\n==================\nSCORE: X out of 10\n\nWHAT IS GOOD:\n- point 1\n- point 2\n\nISSUES FOUND:\n- point 1\n- point 2\n\nQUICK WINS:\n1. first improvement\n2. second improvement\n3. third improvement\n\nSUMMARY:\nWrite 2 simple sentences here about the overall store quality.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1264,
+        192
+      ],
+      "id": "234f1c1f-aa69-4165-ac52-ab1ea24fc2a2",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://fringe-dedicate-rethink.ngrok-free.dev/api/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1600,
+        240
+      ],
+      "id": "2349bf36-a528-44d4-af3a-551cb9af2962",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "71e29a68-d1d8-47c0-9d0d-8fb16d3cb1f0",
+              "name": "auditResult",
+              "value": "={{ $json.response.replace(/[_*[\\]()~`>#+\\-=|{}.!]/g, '\\\\$&') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1776,
+        192
+      ],
+      "id": "5d69212f-5ca7-472c-8a34-a7c7983cf43b",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Edit Fields').item.json.chatId }}",
+        "text": "=Audit Complete for {{ $('Get row(s) in sheet').item.json.storeURL }}\nDate: {{ new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) }}\n\n{{ $json.auditResult }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        288
+      ],
+      "id": "c4b6c589-a57d-40b1-a471-f99970a5caaa",
+      "name": "Send a text message5",
+      "webhookId": "99d9f17a-67a5-4d0c-8b4f-851f654119e4",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chatId",
+              "lookupValue": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        368
+      ],
+      "id": "e11966dc-19d8-4d24-9192-6fa203337d21",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=⏳ Fetching your store data and running the audit...\nThis takes about 15–20 seconds. Hang tight!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        352
+      ],
+      "id": "7e78fdce-3cf9-49eb-9b76-270afebd2bf2",
+      "name": "Send a text message6",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f3f38fb3-ec07-4ddc-bcc3-54cac2e98138",
+              "name": "promptText",
+              "value": "=You are a Shopify copywriter.\nRewrite only the products that have missing or weak descriptions (under 50 words).\n\nPRODUCTS:\n{{ $('HTTP Request3').item.json.products.map(p => 'Title: ' + p.title + '\\nDescription: ' + (p.body_html || 'MISSING')).join('\\n---\\n') }}\n\nReply in this exact format only. No special characters, no asterisks, no markdown, no symbols, no equal signs:\n\nPRODUCT REWRITE SUGGESTIONS\n\nPRODUCT: original title here\nNEW TITLE: improved title here\nNEW DESCRIPTION: 40-60 word plain English rewrite here\n\nPRODUCT: original title here\nNEW TITLE: improved title here\nNEW DESCRIPTION: 40-60 word plain English rewrite here\n\nKeep language simple, clear and customer friendly.\nNo technical jargon. No symbols. No markdown formatting.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1280,
+        400
+      ],
+      "id": "a53a461b-ca0b-4f9f-abab-b56df6742e76",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41a6eda7-78a7-478b-8076-d7777bce0ee3",
+              "name": "auditResult",
+              "value": "={{ $json.response }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1776,
+        416
+      ],
+      "id": "0330faf6-b769-4149-ae4e-c02ef9186e94",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Edit Fields').item.json.chatId }}",
+        "text": "=Fix Suggestions for {{ $('Get row(s) in sheet1').item.json.storeURL }}\nDate: {{ new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) }}\n\n{{ $json.fixResult }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2016,
+        432
+      ],
+      "id": "b6f25c63-58b6-42d4-96be-6726834bb4fe",
+      "name": "Send a text message7",
+      "webhookId": "99d9f17a-67a5-4d0c-8b4f-851f654119e4",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Edit Fields').item.json.chatId }}",
+        "text": "={{ $json.auditResult }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2000,
+        640
+      ],
+      "id": "eb453223-da1e-4efd-91d5-adb774c174b9",
+      "name": "Send a text message8",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0a4ca25e-a993-4f89-8006-ba28d9631807",
+              "name": "chatId",
+              "value": "={{ $json.message.chat.id }}",
+              "type": "string"
+            },
+            {
+              "id": "9d8c4755-6189-43c1-ad6c-058abfcc05d7",
+              "name": "userText",
+              "value": "={{ $json.message.text.toLowerCase().trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "719696b1-bef7-470f-8dab-14daad861e2a",
+              "name": "firstName",
+              "value": "={{ $json.message.from.first_name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        112,
+        -176
+      ],
+      "id": "ace80f23-be62-43c6-91b1-20bad0397896",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"gemma3:1b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        224
+      ],
+      "id": "de2fec5b-f812-46ac-b789-095fd1de5d42",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get row(s) in sheet1').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Shopify-Access-Token",
+              "value": "={{ $('Get row(s) in sheet1').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1040,
+        336
+      ],
+      "id": "28203caf-ea74-468f-9715-5c6530be37e1",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"gemma3:1b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        400
+      ],
+      "id": "01261cce-7b9f-43f3-b4de-a6f9e51b3c5e",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://fringe-dedicate-rethink.ngrok-free.dev/api/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1568,
+        400
+      ],
+      "id": "4a1ee78a-558a-4592-b721-25cfd278acd6",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f3f38fb3-ec07-4ddc-bcc3-54cac2e98138",
+              "name": "promptText",
+              "value": "=You are a friendly Shopify store assistant.\n\nThe user sent this message: {{ $('Edit Fields').item.json.userText }}\n\nThe store products are available if needed:\n{{ $('HTTP Request5').item.json.products.map(p => '- ' + p.title).join('\\n') }}\n\nFollow these rules strictly:\n\n1. If it is a greeting like hi, hello, hey - just greet them warmly using their name: {{ $('Edit Fields').item.json.firstName }} and show the options list below. Do not show products.\n\n2. If they ask about products, what is in the store, or list products - then show the product list above.\n\n3. If the message is not related to Shopify - politely say you can only help with Shopify store tasks.\n\n4. Always end your reply with:\n\nHere is what I can do for you:\n1. audit my store - full readability report with score\n2. fix product descriptions - rewrite weak descriptions  \n3. list my products - see all your store products\n4. /start - reconnect your store\n\nPlain text only. No markdown. No asterisks. No symbols.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1216,
+        656
+      ],
+      "id": "6d77dc53-127c-4be5-9cb0-5970989a3fed",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41a6eda7-78a7-478b-8076-d7777bce0ee3",
+              "name": "auditResult",
+              "value": "={{ $json.response }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1744,
+        656
+      ],
+      "id": "a2e9070f-deb7-44e4-9dd3-91c84d3f84c4",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chatId",
+              "lookupValue": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        576
+      ],
+      "id": "c21b84fd-ca95-4c8f-a06b-1c7fc8f321d5",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=⏳",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        832,
+        624
+      ],
+      "id": "3fd46ce7-499e-431b-980d-6667dc752721",
+      "name": "Send a text message9",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get row(s) in sheet2').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Shopify-Access-Token",
+              "value": "={{ $('Get row(s) in sheet2').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1024,
+        640
+      ],
+      "id": "8dec76d2-a41c-4a14-bb66-68e543cae2b7",
+      "name": "HTTP Request5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"gemma3:1b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        656
+      ],
+      "id": "617fe791-381d-49ec-85bd-591226c5865a",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://fringe-dedicate-rethink.ngrok-free.dev/api/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1584,
+        656
+      ],
+      "id": "49e0f379-1ab2-4f51-a4b5-e0b65b15486a",
+      "name": "HTTP Request6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message2": {
+      "main": [
+        []
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message6": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Send a text message7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Send a text message8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message9": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request5": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request6": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ec627ac4-7b59-4f48-ab26-60165e96b73d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7002df911a62535675fd6451b9d032d96152bb4d46bf977f9012929d6a0c1125"
+  },
+  "id": "G1IxdPEDQUIpy6rN",
+  "tags": []
+}
