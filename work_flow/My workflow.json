@@ -11,8 +11,8 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.2,
       "position": [
-        -96,
-        -176
+        -656,
+        128
       ],
       "id": "94c155c8-249f-45a6-8e06-1760df17fa5b",
       "name": "Telegram Trigger",
@@ -39,13 +39,36 @@
                 },
                 "conditions": [
                   {
+                    "id": "ccebedf9-fb66-407e-b6d6-cb8e7e0fe0ee",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "/help",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "help"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
                     "id": "2f3b33bf-66cc-4993-9b9c-fb9fba922b94",
                     "leftValue": "={{ $json.userText }}",
                     "rightValue": "/start",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                      "operation": "contains"
                     }
                   }
                 ],
@@ -90,7 +113,7 @@
                   {
                     "id": "38b9eadd-9e79-4802-b3c0-6a8b60fe3a38",
                     "leftValue": "={{ $json.userText }}",
-                    "rightValue": "shpat",
+                    "rightValue": "shpat_",
                     "operator": {
                       "type": "string",
                       "operation": "startsWith"
@@ -114,7 +137,7 @@
                   {
                     "id": "139019d9-b295-4fdb-bf31-8e551e7019bb",
                     "leftValue": "={{ $json.userText }}",
-                    "rightValue": "audit",
+                    "rightValue": "/audit",
                     "operator": {
                       "type": "string",
                       "operation": "contains"
@@ -138,7 +161,7 @@
                   {
                     "id": "cb9bb835-9fc4-4af8-9f6e-5e605fdf234b",
                     "leftValue": "={{ $json.userText }}",
-                    "rightValue": "fix",
+                    "rightValue": "/fix",
                     "operator": {
                       "type": "string",
                       "operation": "contains"
@@ -160,7 +183,79 @@
                 },
                 "conditions": [
                   {
+                    "id": "ddc6dc8f-8b8e-4945-9330-db087ffe313f",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "/perception",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "perception"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4909cb9f-d365-4433-a9d4-74380a0ec3f7",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "/status",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "status"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
                     "id": "92e1bd08-f3ef-499c-ae3b-bd63dcc48e85",
+                    "leftValue": "={{ $json.userText }}",
+                    "rightValue": "/chat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "chat"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "6963867e-0590-431a-a232-d2e0b300c527",
                     "leftValue": "={{ $json.userText }}",
                     "rightValue": "",
                     "operator": {
@@ -182,8 +277,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        256,
-        -128
+        -304,
+        176
       ],
       "id": "8ff44cbb-12a9-4b33-8231-ad826447d899",
       "name": "Switch"
@@ -197,8 +292,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        592,
-        -336
+        336,
+        -288
       ],
       "id": "07fc23d2-137e-438d-adfa-6a466e9be2f6",
       "name": "Send a text message1",
@@ -419,7 +514,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
-        "text": "=🔐 Token saved! Your store is now connected.\n\nYou're all set, {{ $json.firstName }}! 🎉\n\nType  audit my store  anytime to run a full readability check.",
+        "text": "=🔐 Token saved! Your store is now connected.\n\nYou're all set, {{ $json.firstName }}! 🎉\n",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
@@ -503,35 +598,12 @@
     },
     {
       "parameters": {
-        "url": "={{ $('Get row(s) in sheet').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "X-Shopify-Access-Token",
-              "value": "={{ $('Get row(s) in sheet').item.json.token }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.4,
-      "position": [
-        1024,
-        176
-      ],
-      "id": "131e3a9c-7354-4193-ba33-dc053f8e2928",
-      "name": "HTTP Request"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
               "id": "cbb6565b-9817-4243-992a-4ae4b7e07999",
               "name": "promptText",
-              "value": "=You are an expert e-commerce store auditor.\n\nAnalyze the following Shopify store products for readability and clarity.\n\nPRODUCTS:\n{{ $('HTTP Request').item.json.products.map(p => 'Title: ' + p.title + '\\nDescription: ' + (p.body_html || 'NO DESCRIPTION')).join('\\n---\\n') }}\n\nReply in this exact format with no special characters, no asterisks, no markdown:\n\nSTORE AUDIT REPORT\n==================\nSCORE: X out of 10\n\nWHAT IS GOOD:\n- point 1\n- point 2\n\nISSUES FOUND:\n- point 1\n- point 2\n\nQUICK WINS:\n1. first improvement\n2. second improvement\n3. third improvement\n\nSUMMARY:\nWrite 2 simple sentences here about the overall store quality.",
+              "value": "=You are an AI Store Audit Engine.\n\nAnalyze only the data provided. Do not invent or assume anything.\n\nIMPORTANT: This store has exactly {{ $('HTTP Request').item.json.products.length }} products.\n\nProduct titles in this store:\n{{ $('HTTP Request').item.json.products.map(p => p.title).join('\\n') }}\n\nSTORE DATA:\n{{ $('HTTP Request').item.json.products.map((p, i) => 'PRODUCT ' + (i+1) + '\\nTitle: ' + p.title + '\\nDescription: ' + (p.body_html ? p.body_html.replace(/<[^>]*>/g, '').trim() : 'NO DESCRIPTION') + '\\nPrice: ' + (p.variants[0].price || 'NOT SET') + '\\nVendor: ' + (p.vendor || 'NOT SET') + '\\nStatus: ' + p.status + '\\nImages: ' + (p.images.length > 0 ? 'Yes' : 'MISSING') + '\\nSKU: ' + (p.variants[0].sku || 'NOT SET') + '\\nInventory: ' + (p.variants[0].inventory_quantity ?? 'NOT SET') + '\\nWeight: ' + (p.variants[0].weight || 'NOT SET')).join('\\n\\n---\\n\\n') }}\n\nSTRICT RULES:\n- Use only the data provided above\n- Never invent products, issues, or fields\n- Never repeat the same product or issue twice\n- Never contradict yourself\n- Only flag fields that are actually missing or empty\n- No markdown, no symbols, no asterisks, no backslashes\n- One blank line between every section and every item\n- Plain text only\n\nReply in this exact format:\n\nSTORE AUDIT REPORT\n\nOVERALL SCORE: X out of 10\n\n\nPRODUCT HEALTH SUMMARY\n\nTotal Products: {{ $('HTTP Request').item.json.products.length }}\n\nHealthy Products: X\n\nProducts With Issues: X\n\n\nISSUES DETECTED\n\nList each product only once. Never repeat the same issue.\n\nProduct: exact product title\n\nSeverity: Critical or High or Medium or Low\n\nIssue: one clear sentence about what is wrong\n\nImpact: one line on how it affects the merchant\n\nProduct: next product title\n\nSeverity: level\n\nIssue: one clear sentence\n\nImpact: one line\n\nIf no issues write exactly: No issues detected.\n\n\nMISSING DATA FIELDS\n\nList each product only once with all missing fields on one line.\n\nProduct: exact product title\nMissing: field1, field2, field3\n\nIf nothing is missing write exactly: No missing fields detected.\n\n\nTRUST SIGNALS\n\nReviews: Present or Missing\nNote: one line only.\n\nReturn Policy: Present or Missing\nNote: one line only.\n\nShipping Policy: Present or Missing\nNote: one line only.\n\nBrand Story: Present or Missing\nNote: one line only.\n\n\nHOW AI AGENTS SEE YOUR STORE\n\nWrite 2 lines only. Be direct. No filler sentences.\n\n\nAI READINESS BREAKDOWN\n\nData Completeness: X out of 10\nReason: one line.\n\nClarity: X out of 10\nReason: one line.\n\nTrust Signals: X out of 10\nReason: one line.\n\n\nPRIORITY ACTION PLAN\n\nMaximum 5 actions. No repeats. Only real actions based on data above.\n\nPriority: Critical or High or Medium\nAction: exact action to take\nReason: one line why it matters\n\nPriority: next level\nAction: next action\nReason: one line\n\nPriority: next level\nAction: next action\nReason: one line\n\n\nFINAL SUMMARY\n\nBiggest problem: one line.\n\nMost important fix: one line.",
               "type": "string"
             }
           ]
@@ -559,11 +631,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1600,
-        240
+        1584,
+        208
       ],
       "id": "2349bf36-a528-44d4-af3a-551cb9af2962",
-      "name": "HTTP Request2"
+      "name": "HTTP Request2",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -572,7 +645,7 @@
             {
               "id": "71e29a68-d1d8-47c0-9d0d-8fb16d3cb1f0",
               "name": "auditResult",
-              "value": "={{ $json.response.replace(/[_*[\\]()~`>#+\\-=|{}.!]/g, '\\\\$&') }}",
+              "value": "={{ $json.response.replace(/[_*[\\]()~`>#+\\-=|{}.!]/g, '\\\\$&') }} \n",
               "type": "string"
             }
           ]
@@ -582,8 +655,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1776,
-        192
+        2208,
+        128
       ],
       "id": "5d69212f-5ca7-472c-8a34-a7c7983cf43b",
       "name": "Edit Fields3"
@@ -597,8 +670,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2080,
-        288
+        2336,
+        96
       ],
       "id": "c4b6c589-a57d-40b1-a471-f99970a5caaa",
       "name": "Send a text message5",
@@ -654,7 +727,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
-        "text": "=⏳ Fetching your store data and running the audit...\nThis takes about 15–20 seconds. Hang tight!",
+        "text": "=⏳ Fetching your store data...\nThis takes about 15–20 seconds. Hang tight!",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
@@ -680,7 +753,7 @@
             {
               "id": "f3f38fb3-ec07-4ddc-bcc3-54cac2e98138",
               "name": "promptText",
-              "value": "=You are a Shopify copywriter.\nRewrite only the products that have missing or weak descriptions (under 50 words).\n\nPRODUCTS:\n{{ $('HTTP Request3').item.json.products.map(p => 'Title: ' + p.title + '\\nDescription: ' + (p.body_html || 'MISSING')).join('\\n---\\n') }}\n\nReply in this exact format only. No special characters, no asterisks, no markdown, no symbols, no equal signs:\n\nPRODUCT REWRITE SUGGESTIONS\n\nPRODUCT: original title here\nNEW TITLE: improved title here\nNEW DESCRIPTION: 40-60 word plain English rewrite here\n\nPRODUCT: original title here\nNEW TITLE: improved title here\nNEW DESCRIPTION: 40-60 word plain English rewrite here\n\nKeep language simple, clear and customer friendly.\nNo technical jargon. No symbols. No markdown formatting.",
+              "value": "=You are a Shopify copywriter fixing products for a merchant.\n\nThis store has exactly {{ $('HTTP Request3').item.json.products.length }} products.\n\nProduct titles in this store:\n{{ $('HTTP Request3').item.json.products.map(p => p.title).join('\\n') }}\n\nFull product data:\n{{ $('HTTP Request3').item.json.products.map((p, i) => 'PRODUCT ' + (i+1) + '\\nTitle: ' + p.title + '\\nDescription: ' + (p.body_html ? p.body_html.replace(/<[^>]*>/g, '').trim() : 'MISSING') + '\\nPrice: ' + (p.variants[0].price || 'NOT SET') + '\\nVendor: ' + (p.vendor || 'NOT SET') + '\\nSKU: ' + (p.variants[0].sku || 'NOT SET') + '\\nImages: ' + (p.images.length > 0 ? 'Yes' : 'MISSING') + '\\nInventory: ' + (p.variants[0].inventory_quantity ?? 'NOT SET') + '\\nWeight: ' + (p.variants[0].weight || 'NOT SET')).join('\\n\\n---\\n\\n') }}\n\n----------------------------------\n\nFIX CONDITIONS:\n\nFix a product ONLY IF:\n- Description is MISSING or under 40 words\n- Price is NOT SET or 0\n- Vendor is NOT SET\n- SKU is NOT SET\n- Images are MISSING\n- Inventory is NOT SET or 0\n- Weight is NOT SET\n\n----------------------------------\n\nEDGE CASE:\n\nIf ALL products are complete, reply EXACTLY:\nAll products look good. No fixes needed.\n\n----------------------------------\n\nSTRICT FORMATTING RULES (VERY IMPORTANT):\n\n- Plain text only\n- No symbols, no asterisks, no backslashes, no markdown\n- Do NOT print numbers or raw values\n- Each label must be on its own line\n- After every label, leave ONE blank line\n- Each field must be on its own line\n- Each product block must be separated by ONE blank line\n- Never repeat a product\n- Never merge multiple lines\n\n----------------------------------\n\nOUTPUT FORMAT (FOLLOW EXACTLY):\n\nPRODUCT FIX REPORT\n\nTotal Products: {{ $('HTTP Request3').item.json.products.length }}\n\nProducts That Need Fixing:\nproduct title\nproduct title\n\n\n----------\n\nPRODUCT: exact product title\n\nNEW TITLE:\n\nimproved title or same if fine\n\nNEW DESCRIPTION:\n\n40 to 60 plain words focused on user and benefit\n\nMISSING FIELDS:\n\nonly include missing fields, one per line\n\n\n----------\n\nPRODUCT: next product title\n\nNEW TITLE:\n\ntext\n\nNEW DESCRIPTION:\n\ntext\n\nMISSING FIELDS:\n\nonly missing fields\n\n\n----------\n\nTOTAL FIXED: X out of {{ $('HTTP Request3').item.json.products.length }}",
               "type": "string"
             }
           ]
@@ -713,8 +786,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1776,
-        416
+        2368,
+        352
       ],
       "id": "0330faf6-b769-4149-ae4e-c02ef9186e94",
       "name": "Edit Fields5"
@@ -722,14 +795,14 @@
     {
       "parameters": {
         "chatId": "={{ $('Edit Fields').item.json.chatId }}",
-        "text": "=Fix Suggestions for {{ $('Get row(s) in sheet1').item.json.storeURL }}\nDate: {{ new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) }}\n\n{{ $json.fixResult }}",
+        "text": "=Fix Suggestions for {{ $('Get row(s) in sheet1').item.json.storeURL }}\nDate: {{ new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) }}\n\n{{ $json.auditResult }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2016,
-        432
+        2528,
+        384
       ],
       "id": "b6f25c63-58b6-42d4-96be-6726834bb4fe",
       "name": "Send a text message7",
@@ -750,8 +823,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2000,
-        640
+        2880,
+        832
       ],
       "id": "eb453223-da1e-4efd-91d5-adb774c174b9",
       "name": "Send a text message8",
@@ -792,15 +865,15 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        112,
-        -176
+        -448,
+        128
       ],
       "id": "ace80f23-be62-43c6-91b1-20bad0397896",
       "name": "Edit Fields"
     },
     {
       "parameters": {
-        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"gemma3:1b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"llama3.1:8b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -813,7 +886,7 @@
     },
     {
       "parameters": {
-        "url": "={{ $('Get row(s) in sheet1').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status",
+        "url": "=http://{{ $('Get row(s) in sheet1').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status,vendor,variants,images",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -832,11 +905,12 @@
         336
       ],
       "id": "28203caf-ea74-468f-9715-5c6530be37e1",
-      "name": "HTTP Request3"
+      "name": "HTTP Request3",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
-        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"gemma3:1b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"llama3.1:8b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -859,11 +933,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1568,
+        1648,
         400
       ],
       "id": "4a1ee78a-558a-4592-b721-25cfd278acd6",
-      "name": "HTTP Request4"
+      "name": "HTTP Request4",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -872,7 +947,7 @@
             {
               "id": "f3f38fb3-ec07-4ddc-bcc3-54cac2e98138",
               "name": "promptText",
-              "value": "=You are a friendly Shopify store assistant.\n\nThe user sent this message: {{ $('Edit Fields').item.json.userText }}\n\nThe store products are available if needed:\n{{ $('HTTP Request5').item.json.products.map(p => '- ' + p.title).join('\\n') }}\n\nFollow these rules strictly:\n\n1. If it is a greeting like hi, hello, hey - just greet them warmly using their name: {{ $('Edit Fields').item.json.firstName }} and show the options list below. Do not show products.\n\n2. If they ask about products, what is in the store, or list products - then show the product list above.\n\n3. If the message is not related to Shopify - politely say you can only help with Shopify store tasks.\n\n4. Always end your reply with:\n\nHere is what I can do for you:\n1. audit my store - full readability report with score\n2. fix product descriptions - rewrite weak descriptions  \n3. list my products - see all your store products\n4. /start - reconnect your store\n\nPlain text only. No markdown. No asterisks. No symbols.",
+              "value": "=```\nYou are a Shopify store assistant. Use only the data provided below. Never invent, assume, or guess anything.\n\nUser message: {{ $('Edit Fields').item.json.userText }}\n\nStore products:\n{{ $('HTTP Request5').item.json.products.map(p => 'Title: ' + p.title + '\\nPrice: ' + (p.variants[0].price || 'Not available') + '\\nVendor: ' + (p.vendor || 'Not available') + '\\nSKU: ' + (p.variants[0].sku || 'Not available') + '\\nDescription: ' + (p.body_html ? p.body_html.replace(/<[^>]*>/g, '').trim() : 'Not available')).join('\\n\\n---\\n\\n') }}\n\nSTRICT RULES:\n- Use only one case per reply\n- Use only data provided above\n- Never combine two cases in one reply\n- Never add extra sentences beyond what the case says\n- If data is missing say exactly: Not available\n- Never guess, infer, or make up product details\n- Plain text only, no markdown, no symbols, no asterisks\n\nCASE 1 - Greeting (hi, hello, hey, good morning, good evening, how are you):\nReply with exactly this one line only:\nHello {{ $('Edit Fields').item.json.firstName }}! How can I help you today?\n\nCASE 2 - User asks to list products or what is in the store:\nReply with only the product titles from above, one title per line.\nNothing else.\n\nCASE 3 - User asks about a specific product by name:\nFind that product in the data above and reply with only its details.\nIf the product is not found reply with exactly: I could not find that product in your store.\n\nCASE 4 - User asks about price, vendor, SKU, or description of a product:\nAnswer using only that product data from above.\nIf the information is missing reply with exactly: That information is not available.\n\nCASE 5 - User message is not related to Shopify or ecommerce:\nReply with exactly: I can only help with your Shopify store.\n\nCASE 6 - User message is unclear or does not match any case above:\nReply with exactly: I did not understand your request. Please choose a command below.\n\nAlways end every reply with exactly this on a new line:\n\nAvailable commands:\n/audit - Analyze your store\n/fix - Improve product descriptions\n/perception - See how AI views your store\n/chat - Ask questions about your store\n/status - Check connection status\n/start - Restart conversation\n```",
               "type": "string"
             }
           ]
@@ -882,8 +957,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1216,
-        656
+        1344,
+        880
       ],
       "id": "6d77dc53-127c-4be5-9cb0-5970989a3fed",
       "name": "Edit Fields6"
@@ -905,8 +980,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1744,
-        656
+        2480,
+        816
       ],
       "id": "a2e9070f-deb7-44e4-9dd3-91c84d3f84c4",
       "name": "Edit Fields7"
@@ -940,8 +1015,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        592,
-        576
+        560,
+        800
       ],
       "id": "c21b84fd-ca95-4c8f-a06b-1c7fc8f321d5",
       "name": "Get row(s) in sheet2",
@@ -955,14 +1030,14 @@
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
-        "text": "=⏳",
+        "text": "=Generating response....",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        832,
-        624
+        976,
+        848
       ],
       "id": "3fd46ce7-499e-431b-980d-6667dc752721",
       "name": "Send a text message9",
@@ -976,7 +1051,7 @@
     },
     {
       "parameters": {
-        "url": "={{ $('Get row(s) in sheet2').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status",
+        "url": "=http://{{ $('Get row(s) in sheet2').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status,vendor,variants,images",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -991,24 +1066,193 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1024,
-        640
+        1152,
+        880
       ],
       "id": "8dec76d2-a41c-4a14-bb66-68e543cae2b7",
-      "name": "HTTP Request5"
+      "name": "HTTP Request5",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
-        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"gemma3:1b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"llama3.1:8b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1424,
-        656
+        1520,
+        880
       ],
       "id": "617fe791-381d-49ec-85bd-591226c5865a",
       "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chatId",
+              "lookupValue": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        608,
+        592
+      ],
+      "id": "36640fc3-b234-41a9-9fdb-ae77973abd08",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=⏳ Fetching your store data...\nThis takes about 15–20 seconds. Hang tight!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        848,
+        608
+      ],
+      "id": "fbcd2cf3-5158-43a6-a1b2-8c25682f07d7",
+      "name": "Send a text message",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=http://{{ $('Get row(s) in sheet3').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status,vendor,variants,images",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Shopify-Access-Token",
+              "value": "={{ $('Get row(s) in sheet3').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1088,
+        592
+      ],
+      "id": "f7c36c15-f874-48c5-9a8e-2ee3b4002121",
+      "name": "HTTP Request7",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f3f38fb3-ec07-4ddc-bcc3-54cac2e98138",
+              "name": "promptText",
+              "value": "=You are an AI shopping agent like Google Shopping or Amazon Rufus.\n\nA customer asked you to find and recommend products from this store. Based only on the data below, explain why you would or would not recommend this store.\n\nPRODUCTS:\n{{ $('HTTP Request7').item.json.products.map(p => 'Title: ' + p.title + '\\nDescription: ' + (p.body_html || 'NO DESCRIPTION') + '\\nPrice: ' + (p.variants[0].price || 'NOT SET') + '\\nVendor: ' + (p.vendor || 'NOT SET') + '\\nImages: ' + (p.images.length > 0 ? 'Yes' : 'MISSING') + '\\nSKU: ' + (p.variants[0].sku || 'NOT SET')).join('\\n---\\n') }}\n\nYou are speaking directly to the merchant. Be honest and specific.\n\nReply in this exact format. Plain text only. No symbols. No markdown:\n\nHOW AI CURRENTLY SEES YOUR STORE\n\nWHAT I SEE WHEN I READ YOUR STORE:\nWrite 3 sentences describing exactly what information is available and what kind of store this appears to be based only on the data above.\n\nWHY I AM NOT RECOMMENDING YOUR STORE RIGHT NOW:\n- specific reason 1 based on actual missing or weak data\n- specific reason 2\n- specific reason 3\n\nWHAT QUESTIONS CUSTOMERS ASK THAT I CANNOT ANSWER:\n- specific unanswered question a real shopper would ask\n- specific unanswered question\n- specific unanswered question\n\nHOW OTHER STORES ARE BEATING YOU:\n- specific advantage a competitor with complete data would have over this store\n- specific advantage\n- specific advantage\n\nWHAT YOU NEED TO FIX SO I START RECOMMENDING YOU:\n1. specific fix based on actual data gaps\n2. specific fix\n3. specific fix\n\nBOTTOM LINE:\nOne honest sentence telling the merchant exactly why AI agents are skipping their store today.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1328,
+        624
+      ],
+      "id": "222cec17-6669-4542-8500-5ab149266d02",
+      "name": "Edit Fields8"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prompt = $input.item.json.promptText.replace(/\\n/g, ' ');\n\nreturn {\n  json: {\n    requestBody: JSON.stringify({\n      model: \"llama3.1:8b\",\n      prompt: prompt,\n      stream: false\n    })\n  }\n};;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        608
+      ],
+      "id": "6369ff7a-f95f-468f-88c2-d714a3bd86b8",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41a6eda7-78a7-478b-8076-d7777bce0ee3",
+              "name": "auditResult",
+              "value": "={{ $json.response }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2352,
+        608
+      ],
+      "id": "44768e94-939d-449e-b285-ebfe68097b7b",
+      "name": "Edit Fields9"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Edit Fields').item.json.chatId }}",
+        "text": "=AI Perception Report for {{ $('Get row(s) in sheet3').item.json.storeURL }}\nDate: {{ new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) }}\n\n{{ $('Merge2').item.json.response }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2544,
+        560
+      ],
+      "id": "c9fb3f02-ebd6-4798-9f6e-b4a2449199e3",
+      "name": "Send a text message10",
+      "webhookId": "99d9f17a-67a5-4d0c-8b4f-851f654119e4",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1022,11 +1266,764 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1584,
-        656
+        1680,
+        608
       ],
-      "id": "49e0f379-1ab2-4f51-a4b5-e0b65b15486a",
-      "name": "HTTP Request6"
+      "id": "d149cf73-5da2-47e9-aaad-c6c7b346386b",
+      "name": "HTTP Request8",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.result.chat.id }}",
+        "text": "=",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "/audit - Check my store readability",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/fix - Rewrite weak descriptions",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/perception - How AI sees my store",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1152,
+        16
+      ],
+      "id": "3c015974-470c-42eb-9b03-4c620d83992d",
+      "name": "Send a text message11",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.result.chat.id }}",
+        "text": "=",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "/audit - Check my store readability",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/fix - Rewrite weak descriptions",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/perception - How AI sees my store",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/start - Exit and reconnect store",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2592,
+        128
+      ],
+      "id": "81744203-b653-4d27-afe4-98b5b8016b23",
+      "name": "Send a text message12",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.result.chat.id }}",
+        "text": "=",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "/audit - Check my store readability",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/fix - Rewrite weak descriptions",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/perception - How AI sees my store",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/start - Exit and reconnect store",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2800,
+        416
+      ],
+      "id": "7f9ccc45-9916-4c0d-a841-1cc325e2b67e",
+      "name": "Send a text message13",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.result.chat.id }}",
+        "text": "=",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "/audit - Check my store readability",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/fix - Rewrite weak descriptions",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/perception - How AI sees my store",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "/start - Exit and reconnect store",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2864,
+        608
+      ],
+      "id": "7da05f92-eac2-4eef-a122-d63f6b4552d9",
+      "name": "Send a text message14",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "52a739d4-3382-46bf-aae2-e0eb71b436a2",
+              "leftValue": "={{ $json.response }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1744,
+        -16
+      ],
+      "id": "67a4b3e2-9d0d-44ec-abfa-68aaded2b642",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSy7KfP2xQ9LmN8vT4rYwZcA1bH3eD5uJ6",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\"parts\": [{\"text\": \"{{ $('Edit Fields2').item.json.promptText }}\"}]}]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1920,
+        0
+      ],
+      "id": "5116d8bd-3918-4f24-b40e-1d6f5ffcc874",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2048,
+        -160
+      ],
+      "id": "31b6e41e-2d82-4477-80cb-540ef13d1452",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "52a739d4-3382-46bf-aae2-e0eb71b436a2",
+              "leftValue": "={{ $json.response }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1776,
+        352
+      ],
+      "id": "782cfee3-2b86-4c48-b403-10e02d8fe062",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSy7KfP2xQ9LmN8vT4rYwZcA1bH3eD5uJ6",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\"parts\": [{\"text\": \"{{ $('Edit Fields4').item.json.promptText }}\"}]}]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1952,
+        368
+      ],
+      "id": "d39c748a-a218-45dc-ba3f-0ae0b803fde3",
+      "name": "HTTP Request9"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2080,
+        208
+      ],
+      "id": "6e462e6c-5fa4-4e42-82e4-521b61bb58e5",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "52a739d4-3382-46bf-aae2-e0eb71b436a2",
+              "leftValue": "={{ $json.response }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1872,
+        624
+      ],
+      "id": "04d4fd44-ad59-4c59-9693-5d8283947432",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSy7KfP2xQ9LmN8vT4rYwZcA1bH3eD5uJ6",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\"parts\": [{\"text\": \"{{ $('Edit Fields8').item.json.promptText }}\"}]}]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2048,
+        640
+      ],
+      "id": "5e4aebdd-25ef-4e70-a3a6-adbb92a72661",
+      "name": "HTTP Request10"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2176,
+        480
+      ],
+      "id": "d7d3f0ce-ffd3-4a94-b52c-819af89bcbe0",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "52a739d4-3382-46bf-aae2-e0eb71b436a2",
+              "leftValue": "={{ $json.response }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1872,
+        944
+      ],
+      "id": "71e0d379-3e35-4a84-8362-9c44c49cde43",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSy7KfP2xQ9LmN8vT4rYwZcA1bH3eD5uJ6",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\"parts\": [{\"text\": \"{{ $('Edit Fields6').item.json.promptText }}\"}]}]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2048,
+        960
+      ],
+      "id": "dfd528f4-9a1a-4a63-8419-7f67e447338d",
+      "name": "HTTP Request11"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2176,
+        800
+      ],
+      "id": "8a6a3847-233b-4873-8c4e-6779cb97217e",
+      "name": "Merge3"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=🤖 AI Store Assistant – Help Guide\n\nI can help you improve your Shopify store using AI.\n\nHere’s how to use me:\n\n🔗 Step 1: Connect your store\nSend your store URL\nExample: mystore.myshopify.com\n\n🔐 Step 2: Add your API token\nPaste your Shopify Admin API token\n(It starts with shpat_)\n\n🔒 Your data is safe. You can reset anytime using /reset\n\n---\n\n📊 Available Commands:\n\n/audit\nGet a full store analysis with score, issues, and improvement plan\n\n/fix\nRewrite weak or missing product descriptions\n\n/perception\nSee how AI shopping agents understand your store\n\n/chat\nAsk anything about your store (products, issues, suggestions)\n\n/status\nCheck your connected store\n\n/start\nDisconnect and start fresh\n\n/help\nShow this guide again\n\n---",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        -96
+      ],
+      "id": "1636a653-b0c9-47ad-b726-8b8f41889bf1",
+      "name": "Send a text message15",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chatId",
+              "lookupValue": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -80,
+        752
+      ],
+      "id": "a5f70115-fefc-45b9-ad8a-1f638c3eb2f3",
+      "name": "Get row(s) in sheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8e9d11f2-dcd6-4bc9-9c76-3454977719f0",
+              "leftValue": "={{ $json.storeURL }}",
+              "rightValue": ".myshopify.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "8a719ff8-ab2b-42d5-843d-201147d36d99",
+              "leftValue": "={{ $json.token }}",
+              "rightValue": "shpat",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        112,
+        880
+      ],
+      "id": "54dc7846-a93e-407b-ae17-7b15b4ac7cfb",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=📌 Store Connection Status\n\n❌ No store connected\n\nTo get started:\n\n1️⃣ Send your store URL\nExample: mystore.myshopify.com\n\n2️⃣ Send your Shopify API token\n(It starts with shpat_)\n\n---\n\n🔒 Your data is secure and used only for analysis\n\nType /start to begin\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        1200
+      ],
+      "id": "641a9c75-7d1e-4b56-877e-8eac1ac88829",
+      "name": "Send a text message16",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=📌 Store Connection Status\n\n✅ Status: Connected\n\n🏪 Store URL: {{  $json.storeURL }}\n🔐 API Token: Connected\n\n---\n\nYou’re ready to use all features:\n\n/audit – Analyze your store\n/fix – Improve product descriptions\n/perception – See how AI views your store\n/chat – Ask anything about your store\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        432,
+        944
+      ],
+      "id": "c163d9c2-e7b3-4627-a413-fb52e984825e",
+      "name": "Send a text message17",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=🤔 I didn’t understand that\n\nI can help you with your Shopify store, but I didn’t recognize your request.\n\nTry one of these commands:\n\n/audit – Analyze your store\n/fix – Improve product descriptions\n/perception – See how AI views your store\n/chat – Ask questions about your store\n/status – Check connection status\n/start - Restart conversation\n\n---\n\n💡 Example:\n/chat Which product needs improvement?\n\n---\n\nIf you’re just getting started, type /start\n\nWhat would you like to do next?\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -384,
+        960
+      ],
+      "id": "0f54f403-4eee-4b12-970c-0d63c84f715c",
+      "name": "Send a text message18",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=Token not working\n\nI could not authenticate your Shopify store\n\nPossible reasons:\nToken expired\nToken revoked\nMissing required permissions\n\nFix steps:\n1 Go to Shopify Admin\n2 Open your custom app\n3 Regenerate Admin API token\n4 Enable Products read access\n\nAlso check your store URL\nExample mystore.myshopify.com\n\nError code {{ $json.error.code }}\n\nPaste the new token to try again\nOr type /start to reconnect your store\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1440,
+        1264
+      ],
+      "id": "a743bb56-99b4-41dd-a212-49c94e933052",
+      "name": "Send a text message19",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=Invalid API Token\n\nI couldn’t authenticate your Shopify store with this token.\n\nPlease check:\n\nThe token starts with\nIt is copied completely (no missing characters)\nThere are no extra spaces before or after\n\n---\n\nMake sure your token has access to:\n\nProducts (read access required)\n\n---\n\nHow to get a valid token:\nGo to Shopify Admin , Apps , Develop apps , Create app , Generate Admin API token\n\n---\n\nPlease paste your API token again ",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        128
+      ],
+      "id": "7db210b9-70ed-4d58-a07c-9566da208945",
+      "name": "Send a text message21",
+      "webhookId": "20ecb7a2-ec84-4a1e-a640-22c66abb2fce",
+      "credentials": {
+        "telegramApi": {
+          "id": "mxKhUGvCtFDn97jr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://{{ $('Get row(s) in sheet5').item.json.storeURL }}/admin/api/2024-01/shop.json",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Shopify-Access-Token",
+              "value": "={{ $('Edit Fields').item.json.userText }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        176,
+        128
+      ],
+      "id": "b8175ae3-af06-4d88-8368-ba86bb19a94a",
+      "name": "HTTP Request12",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R0WjGuG8xFNDbDbmZdv2ze-Wegtt8fpGnMJgYyK5hoU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "chatId",
+              "lookupValue": "={{ $json.chatId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        160
+      ],
+      "id": "f358d2f8-3334-43e2-ba00-1a54bbc47c0c",
+      "name": "Get row(s) in sheet5",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2IBQXne2HEtnxu0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=http://{{ $('Get row(s) in sheet').item.json.storeURL }}/admin/api/2024-01/products.json?limit=50&fields=title,body_html,status,vendor,variants,images",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Shopify-Access-Token",
+              "value": "={{ $('Get row(s) in sheet').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1024,
+        176
+      ],
+      "id": "131e3a9c-7354-4193-ba33-dc053f8e2928",
+      "name": "HTTP Request",
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {},
@@ -1046,6 +2043,13 @@
       "main": [
         [
           {
+            "node": "Send a text message15",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Send a text message1",
             "type": "main",
             "index": 0
@@ -1060,7 +2064,7 @@
         ],
         [
           {
-            "node": "Update row in sheet",
+            "node": "Get row(s) in sheet5",
             "type": "main",
             "index": 0
           }
@@ -1081,7 +2085,28 @@
         ],
         [
           {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message18",
             "type": "main",
             "index": 0
           }
@@ -1148,17 +2173,6 @@
         ]
       ]
     },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Edit Fields2": {
       "main": [
         [
@@ -1174,7 +2188,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields3",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -1266,6 +2280,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Send a text message19",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -1284,7 +2305,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields5",
+            "node": "If1",
             "type": "main",
             "index": 0
           }
@@ -1332,6 +2353,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Send a text message19",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -1350,14 +2378,291 @@
       "main": [
         [
           {
-            "node": "HTTP Request6",
+            "node": "If3",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HTTP Request6": {
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request7": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message19",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields8": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields9": {
+      "main": [
+        [
+          {
+            "node": "Send a text message10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request8": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message5": {
+      "main": [
+        [
+          {
+            "node": "Send a text message12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message10": {
+      "main": [
+        [
+          {
+            "node": "Send a text message14",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message7": {
+      "main": [
+        [
+          {
+            "node": "Send a text message13",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request9": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request10": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request11": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge3": {
       "main": [
         [
           {
@@ -1367,14 +2672,90 @@
           }
         ]
       ]
+    },
+    "Get row(s) in sheet4": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Send a text message17",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message16",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request12": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message21",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet5": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message19",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "ec627ac4-7b59-4f48-ab26-60165e96b73d",
+  "versionId": "085ba68a-1a45-43ce-86db-27d32d842ff0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7002df911a62535675fd6451b9d032d96152bb4d46bf977f9012929d6a0c1125"
