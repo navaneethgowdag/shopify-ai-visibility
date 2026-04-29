@@ -1,12 +1,12 @@
 # Why AI Shopping Agents Skip Your Store — and What to Do About It
 
----
+
 
 ## Who It's For
 
 A non-technical Shopify merchant with a well-designed store but zero visibility in AI-driven discovery. They need simple, actionable fixes they can apply from their phone — without touching code or hiring a developer.
 
----
+
 
 ## Problem
 
@@ -14,7 +14,7 @@ A new layer of commerce is emerging. AI agents inside platforms like ChatGPT, Pe
 
 Most independent Shopify merchants are not being surfaced by these agents. They are effectively invisible in this new AI-driven shopping layer — and they don't know it.
 
----
+
 
 ## Reason
 
@@ -30,7 +30,7 @@ AI agents rely on structured, unambiguous data to understand and recommend produ
 
 To a human, the store may look polished and appealing. To an AI system, it looks like unstructured noise instead of usable signal. So the agent skips it — and moves to a store it can understand.
 
----
+
 
 ## Why It Matters Now
 
@@ -40,7 +40,6 @@ Search engine optimization took a decade to become table stakes. Agent optimizat
 
 Unlike SEO, no one has explained this to non-technical merchants yet. The gap between what developers know and what store owners understand is total.
 
----
 
 ## What We Built
 
@@ -64,7 +63,7 @@ Once connected, the merchant can run commands from a tap:
 
 **Chat** — Ask any store specific question and get answers using only real store data. No hallucinations.
 
----
+
 
 ## How It Works
 
@@ -82,7 +81,7 @@ Gemini API as fallback if local model is unavailable
 Report sent back to merchant on Telegram
 ```
 
----
+
 
 ## Tech Stack
 
@@ -96,13 +95,13 @@ Report sent back to merchant on Telegram
 | ngrok | Tunnel exposing local Ollama to n8n cloud |
 | Google Sheets | Lightweight merchant credential storage |
 
----
+
 
 ## Tradeoffs and How We Resolved Them
 
 We chose simple, understandable output over deep technical audits involving schema graphs and edge cases. We chose showing fixes over auto-fixing, sacrificing automation to gain simplicity and user trust. We chose Telegram over a web dashboard because merchants are already there and need zero onboarding.
 
----
+
 
 ## What We Chose Not to Build and Why
 
