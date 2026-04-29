@@ -1,12 +1,12 @@
 # Technical Report: AI Store Readability Auditor
 
----
+
 
 ## 1. What This System Does
 
 This is a Telegram-based AI agent that connects to a Shopify store and audits it the way an AI shopping agent would. A merchant sends messages through Telegram and gets back a readable report showing what is working, what is missing, and what to fix first. No dashboard. No code. Just chat.
 
----
+
 
 ## 2. System Architecture
 
@@ -51,7 +51,7 @@ Edit Fields parses response field
 Telegram sends report back to merchant
 ```
 
----
+
 
 ## 3. Switch Routing Logic
 
@@ -70,7 +70,7 @@ The Switch node uses exact string matching on `$json.userText` — the lowercase
 | `chat` | contains `/chat` | Conversational store assistant |
 | `default` | is not empty | AI assistant with command menu |
 
----
+
 
 ## 4. Shopify API Integration
 
@@ -105,7 +105,7 @@ p.body_html ? p.body_html.replace(/<[^>]*>/g, '').trim() : 'MISSING'
 
 This prevents the LLM from seeing raw HTML and producing noisy output.
 
----
+
 
 ## 5. LLM Integration
 
@@ -156,7 +156,7 @@ Body (JSON):
 
 Each flow has its own Gemini node pointing to its specific prompt field in Edit Fields.
 
----
+
 
 ## 6. Fallback Architecture
 
@@ -205,7 +205,7 @@ Mode: `Append` — combines whichever branch produced output without requiring m
 | Perception | HTTP Request8 | If2 | HTTP Request10 | Merge2 |
 | Chat | HTTP Request (chat) | If3 | HTTP Request11 | Merge3 |
 
----
+
 
 ## 7. Key Implementation Decisions
 
@@ -220,7 +220,7 @@ Mode: `Append` — combines whichever branch produced output without requiring m
 - **Newline stripping in Code node** — Newlines inside JSON strings cause bad request errors. Stripped before serialization.
 - **Continue on Fail on Ollama nodes** — Allows workflow to continue to fallback even when Ollama returns HTTP error.
 
----
+
 
 ## 8. What AI Does vs What Deterministic Code Does
 
@@ -249,7 +249,6 @@ Mode: `Append` — combines whichever branch produced output without requiring m
 
 Routing and data fetching are deterministic because they must be reliable and predictable. A routing failure would break the entire workflow. AI is only used where language understanding is genuinely needed.
 
----
 
 ## 9. Prompt Design and Hallucination Prevention
 
@@ -277,7 +276,7 @@ Simulates an AI shopping agent speaking to the merchant. Shows what the agent ca
 
 Uses only real store data. Never invents details. Each case is strictly separated — greeting, list products, specific product, off-topic — never combined.
 
----
+
 
 ## 10. Failure Handling
 
@@ -291,7 +290,7 @@ Uses only real store data. Never invents details. Each case is strictly separate
 | Unexpected user input | Switch default route | AI assistant handles it |
 | ngrok URL changes | Manual update required | Known limitation |
 
----
+
 
 ## 11. Known Limitations
 
@@ -301,7 +300,7 @@ Uses only real store data. Never invents details. Each case is strictly separate
 - **No audit history** — Each audit is independent. No score tracking over time.
 - **Local machine dependency** — Ollama requires developer machine to be on. Gemini handles requests if machine is off.
 
----
+
 
 ## 12. What We Would Improve With More Time
 
