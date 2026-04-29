@@ -1,8 +1,8 @@
-# Perceptra — Architecture and Design Decisions
+﻿# Perceptra — Architecture and Design Decisions
 
 This document explains every major decision we made while building the AI Store Readability Auditor, including what we considered, what we chose, and why.
 
----
+
 
 ## 1. Initial Plan vs Final Approach
 
@@ -27,7 +27,7 @@ We also ran into API token limits with cloud LLMs early on.
 
 We switched to n8n as our automation layer and Ollama as our local LLM. This let us focus on product logic instead of infrastructure.
 
----
+
 
 ## 2. Why n8n Instead of Custom Backend
 
@@ -51,7 +51,6 @@ We chose n8n.
 - Not suitable for large-scale production without significant changes
 - Some advanced logic requires workarounds in n8n
 
----
 
 ## 3. Why Telegram Instead of a Web Dashboard
 
@@ -78,7 +77,7 @@ We chose Telegram.
 ### How We Argued It
 We chose Telegram because the best interface is the one merchants already have open. A non-technical merchant like Priya does not want another dashboard. She wants answers in the app she already uses.
 
----
+
 
 ## 4. Why Ollama as Primary LLM
 
@@ -106,7 +105,7 @@ We chose Ollama with Llama3 as primary and Gemini as fallback.
 ### Model Choice
 We tested Gemma3:1b, Llama3.2:3b, and Llama3.1:8b. We settled on Llama3.1:8b for best output quality and format adherence.
 
----
+
 
 ## 5. Why Google Sheets Instead of a Database
 
@@ -131,7 +130,7 @@ We chose Google Sheets.
 - No proper indexing or query performance
 - Would need to be replaced with a real database before production
 
----
+
 
 ## 6. Why Read-Only Shopify Access
 
@@ -153,7 +152,7 @@ We chose read-only access.
 - Merchant must copy suggestions manually into their store
 - Limits future automation features
 
----
+
 
 ## 7. Why We Show Fixes Instead of Auto-Fixing
 
@@ -174,7 +173,7 @@ We chose to show suggestions only.
 - More manual work for the merchant
 - Reduces the wow factor of full automation
 
----
+
 
 ## 8. Why Prompt-Based Audit Instead of Rule-Based Scoring
 
@@ -197,7 +196,7 @@ We chose LLM-based analysis.
 - Harder to guarantee exact output structure every time
 - Requires careful prompt engineering to minimize hallucination
 
----
+
 
 ## 9. Why ngrok Instead of Deploying Ollama to a Server
 
@@ -221,7 +220,7 @@ We chose ngrok for the hackathon.
 ### Future Fix
 Replace ngrok with Cloudflare Tunnel which is free and gives a permanent URL.
 
----
+
 
 ## 10. Fallback Strategy — Ollama to Gemini
 
@@ -243,7 +242,7 @@ Added Gemini 2.0 Flash as automatic fallback when Ollama returns empty response 
 - Gemini API has usage costs if triggered frequently
 - Prompt may need slight adjustment for Gemini vs Ollama response format
 
----
+
 
 ## Summary Table
 

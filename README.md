@@ -2,7 +2,7 @@
 
 > Help Shopify merchants understand how AI shopping agents perceive their store — and what to fix.
 
----
+
 
 ## The Problem
 
@@ -14,7 +14,7 @@ To a human, the store looks fine. To an AI agent, it looks like noise.
 
 So the agent skips it.
 
----
+
 
 ## What We Built
 
@@ -22,7 +22,7 @@ A conversational AI agent that connects to a Shopify store through Telegram and 
 
 The merchant connects their store in under 2 minutes. After that, everything is one tap.
 
----
+
 
 ## Features
 
@@ -35,7 +35,7 @@ The merchant connects their store in under 2 minutes. After that, everything is 
 | `/chat` | Ask questions about your store products |
 | `/status` | Check which store is connected |
 
----
+
 
 ## How It Works
 
@@ -69,7 +69,7 @@ Structured report sent back to merchant on Telegram
 | ngrok | Tunnel for local Ollama |
 | Google Sheets | Merchant credential storage |
 
----
+
 
 ## Setup Guide
 
@@ -123,7 +123,7 @@ Copy the forwarding URL and update it in the n8n HTTP Request nodes for Ollama.
 
 Go to n8n → open the workflow → toggle it to **Active**
 
----
+
 
 ## Connecting Your Shopify Store
 
@@ -145,7 +145,7 @@ Go to n8n → open the workflow → toggle it to **Active**
 
 The bot validates the token instantly and saves it. You never need to enter it again.
 
----
+
 
 ## Architecture Decisions
 
@@ -164,7 +164,7 @@ Zero infrastructure setup for MVP. Simple and fast to implement. Would be replac
 **Why read-only Shopify access**
 Builds merchant trust. Eliminates risk of accidental data changes. Bot can analyze but never modify.
 
----
+
 
 ## Known Limitations
 
@@ -173,7 +173,7 @@ Builds merchant trust. Eliminates risk of accidental data changes. Bot can analy
 - Google Sheets is not suitable for production scale
 - No audit history — merchants cannot track score changes over time
 
----
+
 
 ## What We Would Improve With More Time
 
@@ -184,7 +184,7 @@ Builds merchant trust. Eliminates risk of accidental data changes. Bot can analy
 - Use a larger LLM for higher quality output
 - Build a simple web dashboard for merchants who prefer it
 
----
+
 
 ## Team
 
@@ -194,14 +194,10 @@ Builds merchant trust. Eliminates risk of accidental data changes. Bot can analy
 
 Built for Kasparro Hackathon — Track 5: AI Representation Optimizer
 
----
+
 
 ## Demo
 
 Telegram Bot: [@ai_shopifybot](https://t.me/ai_shopifybot)
 
----
-
-## License
-
-MIT
+Video Demo : https://drive.google.com/drive/folders/1h9jiKE9bAcHPgTOMmSS_1kolOh13vdYW?usp=drive_link
