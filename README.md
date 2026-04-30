@@ -185,6 +185,9 @@ Builds merchant trust. Eliminates risk of accidental data changes. Bot can analy
 - Build a simple web dashboard for merchants who prefer it
 
 
+## Screenshots
+![Audit Output](screenshots/audit.png)
+
 
 ## Team
 
